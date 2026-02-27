@@ -210,7 +210,7 @@ a:hover {
 /* Episodes */
 
 .ep-container {
-    margin: 14vh 5vh 5vh 5vh;
+    margin: 16vh 13vh 13vh 13vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -585,6 +585,15 @@ a:hover {
 }
 
 /* Media Query*/
+@media (max-width: 900px) {
+
+.ep-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+}
+
 @media (max-width: 750px) {
 
 /* Header */
@@ -608,9 +617,8 @@ a:hover {
 /* Episodes */
 
 .ep-container {
-    margin-top: 27.5vh;
+    margin: 27.5vh 5vh 5vh 5vh;
 }
-
 /* About */
 
 .ab-container {
@@ -719,11 +727,6 @@ a:hover {
 @media (max-width: 550px) {
 
 /* Episodes */
-
-.ep-container {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-}
 
 .ep {
     opacity: 1;

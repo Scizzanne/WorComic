@@ -122,8 +122,13 @@ a:hover {
 
 /* Home */
 
+.title {
+    margin-top: 14vh;
+    width: 100vw;
+}
+
 .ho-container {
-    margin: 14vh 5vh 5vh 5vh;
+    margin: 5vh 5vh 5vh 5vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -140,7 +145,7 @@ a:hover {
 .main-cover {
     height: 41vw;
     grid-row: 1/4;
-    grid-column: 1/2;
+    grid-column: 2/3;
     margin: auto;
 }
 
@@ -152,18 +157,17 @@ a:hover {
     clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
 }
 
-.news p {
-    margin: 5%;
+.news-title {
+    margin: auto;
+    color: rgb(255, 255, 255);
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 150px;
 }
 
-.news-text {
-    color: rgb(255, 255, 255);
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 150px;
+.news p {
+    margin: 5%;
 }
 
 .playlist {
@@ -189,24 +193,24 @@ a:hover {
     grid-column: 3/4;
     grid-template-columns: 1fr 3fr;
     grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 1vw;
     clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
 }
 
 .socials-text {
-
     grid-column: 2/3;
-    font-size: 20px;
+    font-size: 1.35vw;
 }
 
 .socials-img {
     grid-column: 1/2;
-    height: 6rem;
+    height: 5vw;
 }
 
 /* Episodes */
 
 .ep-container {
-    margin: 14vh 5vh 5vh 5vh;
+    margin: 16vh 13vh 13vh 13vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -235,7 +239,7 @@ a:hover {
 
 .ep-drop-down-content {
     display: none;
-    background-image: url(../Images/Drop_Down_Menu.PNG);
+    background-image: url(../Images/drop_down_menu.PNG);
     background-size: 100% 100%;
     position: absolute;
     width: 100%;
@@ -352,26 +356,49 @@ a:hover {
     height: 90vh;
 }
 
+.coming-soon {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.coming-soon img {
+    width: 40vw;
+    grid-row: 2/3;
+    margin: auto;
+}
+
+.coming-soon p {
+    margin: 0;
+    color: rgb(255, 255, 255);
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 150px;
+    text-align: center;
+}
+
 /* Credits */
 
 .cre-container {
     margin: 12.5vh 5vh 5vh 5vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 5vh;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .cre-bio {
-    background-color: rgb(159, 159, 159);
-    width: 100%;
+    background-color: rgb(159, 159, 159);    
+    width: calc(50% - 2.5vh);
     gap: 3vh;
     transition: 0.2s;
     clip-path: polygon(0 0, 99% 0, 100% 100%, 1% 100%);
 }
 
 .cre-text {
-    grid-column: 1/3;
+    width: 100%;
     text-align: center;
     font-family: "Jersey 10", sans-serif;
     font-weight: 400;
@@ -558,6 +585,15 @@ a:hover {
 }
 
 /* Media Query*/
+@media (max-width: 900px) {
+
+.ep-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+}
+
 @media (max-width: 750px) {
 
 /* Header */
@@ -574,16 +610,15 @@ a:hover {
 
 /* Home */
 
-.ho-container {
+.title {
     margin-top: 27.5vh;
 }
 
 /* Episodes */
 
 .ep-container {
-    margin-top: 27.5vh;
+    margin: 27.5vh 5vh 5vh 5vh;
 }
-
 /* About */
 
 .ab-container {
@@ -598,16 +633,19 @@ a:hover {
     margin-top: 27.5vh;
 }
 
+.coming-soon img {
+    width: 60vw;
+}
+
 /* Credits */
 
 .cre-container {
     margin-top: 27.5vh;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
 }
 
 .cre-bio {
-    grid-column: 1/3;
+    width: 100% !important;
+    flex-basis: 100%;
 }
 
 .cre-text {
@@ -690,11 +728,6 @@ a:hover {
 
 /* Episodes */
 
-.ep-container {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-}
-
 .ep {
     opacity: 1;
 }
@@ -710,16 +743,6 @@ a:hover {
 }
 
 @media (max-width: 1250px) {
-
-/* Music */
-
-.mu-container {
-    margin-left: 5vh;
-}
-
-.vinyl {
-    display: none;
-}
 
 /* Home */
 
@@ -764,7 +787,30 @@ a:hover {
     height: 25vh;
     grid-row: 5/6;
     grid-column: 1/2;
+    grid-template-columns: 1fr 1fr;
     clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.socials-text {
+    font-size: 3vw;
+}
+
+.socials-img {
+    height: 10vw;
+}
+
+/* Music */
+
+.mu-container {
+    margin-left: 5vh;
+}
+
+.vinyl {
+    display: none;
+}
+
+.coming-soon img {
+    width: 60vw;
 }
 
 }

@@ -277,6 +277,7 @@ a:hover {
     font-size: 3vw;
     clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
 }
+
 .ep-drop-down-content a {
     padding-left: 23%;
     padding-right: 23%;
@@ -587,6 +588,8 @@ a:hover {
 /* Media Query*/
 @media (max-width: 900px) {
 
+/* Episodes */
+
 .ep-container {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -614,11 +617,52 @@ a:hover {
     margin-top: 27.5vh;
 }
 
+.ho-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    row-gap: 5vh;
+}
+
+.main-cover {
+    height: 110vw;
+    grid-row: 1/2;
+    grid-column: 1/2;
+    margin: auto;
+}
+
+.news {
+    grid-row: 3/4;
+    height: 60vw;
+}
+
+.playlist {
+    margin: auto;
+    width: 100%;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.socials {
+    height: 25vh;
+    grid-row: 5/6;
+    grid-column: 1/2;
+    grid-template-columns: 1fr 1fr;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
 /* Episodes */
 
 .ep-container {
     margin: 27.5vh 5vh 5vh 5vh;
 }
+
+.big-button {
+    font-size: 7vw;
+}
+
+.small-button {
+    font-size: 5vw;
+}
+
 /* About */
 
 .ab-container {
@@ -728,16 +772,18 @@ a:hover {
 
 /* Episodes */
 
-.ep {
-    opacity: 1;
-}
-
 .big-button {
     font-size: 6vw;
 }
 
 .small-button {
     font-size: 4vw;
+}
+
+/* Music */
+
+.coming-soon p {
+    font-size: 100px;
 }
 
 }
@@ -747,27 +793,28 @@ a:hover {
 /* Home */
 
 .ho-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 1fr 3fr 1fr;
     row-gap: 5vh;
 }
 
 .main-cover {
     height: 110vw;
-    grid-row: 1/2;
-    grid-column: 1/2;
+    grid-row: 4/5;
+    grid-column: 1/3;
     margin: auto;
 }
 
 .news {
-    grid-row: 3/4;
-    height: 60vw;
+    grid-row: 2/4;
+    grid-column: 1/2;
+    height: 40vw;
 }
 
 .playlist {
     margin: auto;
-    width: 50%;
-    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+    width: 100%;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
 }
 
 .playlist p {
@@ -784,11 +831,11 @@ a:hover {
 }
 
 .socials {
-    height: 25vh;
-    grid-row: 5/6;
-    grid-column: 1/2;
+    height: 22.6vw;
+    grid-row: 3/4;
+    grid-column: 2/3;
     grid-template-columns: 1fr 1fr;
-    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
 }
 
 .socials-text {
@@ -811,6 +858,28 @@ a:hover {
 
 .coming-soon img {
     width: 60vw;
+}
+
+}
+
+@media (max-width: 450px) {
+
+/* Episodes */
+
+.ep-container {
+    grid-template-columns: 1fr;
+}
+
+.ep {
+    opacity: 1;
+}
+
+.big-button {
+    font-size: 13vw;
+}
+
+.small-button {
+    font-size: 9vw;
 }
 
 }

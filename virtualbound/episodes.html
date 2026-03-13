@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episodes</title>
+    <link rel="stylesheet" href="./Style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img src="./Images/web_backgroud.png" class="background" alt="">
+    <header class="header">
+        <a href="./home.html" class="home-button button">Home</a>
+        <p class="episodes-button button button-here">Episodes</p>
+        <a href="./about.html" class="about-button button">About</a>
+        <a href="./music.html" class="music-button button">Music</a>
+        <a href="./credits.html" class="credits-button button">Credits</a>
+    </header>
+    <div class="ep-container">
+        <div class="ep-flex">
+            <img id="epButton" src="./Images/episode_1_cover.PNG" class="ep" alt="">
+            <div id="epDropDown" class="ep-drop-down-content">
+                <button class="ep-menu-button big-button"><a href="./P0.html">Read</a></button>
+                <br>
+                <button class="ep-menu-button small-button"><a href="./episode_1_pages.html">Pages</a></button>
+            </div>
+        </div>
+        <div class="ep-flex">
+            <img id="epButton" src="./Images/unknown_episode.png" class="ep" alt="">
+        </div> 
+        <div class="ep-flex">
+            <img id="epButton" src="./Images/unknown_episode.png" class="ep" alt="">
+        </div>  
+        <div class="ep-flex">
+            <img id="epButton" src="./Images/unknown_episode.png" class="ep" alt="">
+        </div>  
+        <div class="ep-flex">
+            <img id="epButton" src="./Images/unknown_episode.png" class="ep" alt="">
+        </div>  
+        <div class="ep-flex">
+            <img id="epButton" src="./Images/unknown_episode.png" class="ep" alt="">
+        </div>  
+    </div>
+    <script>
+    const epButton = document.getElementById('epButton');
+    const epDropDown = document.getElementById('epDropDown');
+
+    epButton.addEventListener('click', function() {
+
+        epDropDown.classList.toggle('show');
+        epDropDown.classList.remove('ep');
+    });
+
+
+    window.onclick = function(event) {
+        if (!event.target.matches('#epButton')) {
+            if (epDropDown.classList.contains('show')) {
+                epDropDown.classList.remove('show');
+            }
+        }
+    }
+    </script>
+</body>
+</html>

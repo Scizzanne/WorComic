@@ -39,3 +39,45 @@
     z-index: 1;
 }
 
+#fly {
+    position: absolute;
+    width: 10%;
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+}
+
+#game-text:before {
+    content: "HIT THE FLY \A <-----";
+    white-space: pre-wrap;
+}
+
+/* Portrait mode */
+@media (max-width: 750px) {
+    .container {
+        margin-top: 12vh; 
+        height: auto; 
+        grid-template-rows: auto auto auto; 
+    }
+
+    .game-area {
+        grid-row: 1/2; 
+        width: 96%; 
+        margin-bottom: 2vh;
+        margin-top: 16vh;
+    }
+
+    .text {
+        grid-row: 2/3; 
+        margin-top: 2vh; 
+    }
+
+    .switch {
+        grid-row: 3/4; 
+    }
+
+    #game-text:before {
+    content: "^^ HIT THE FLY ^^";
+    }
+}
+

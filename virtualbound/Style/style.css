@@ -1,0 +1,889 @@
+body {
+    margin: 0;
+}
+
+.background {
+    z-index: -1;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    bottom: 0vw;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+/* Header */
+
+.header {
+    background-color: rgb(176, 176, 176);
+    height: 7.5vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 2vh;
+    position: fixed;
+    top: 0vw;
+    z-index: 100;
+}
+
+.vr-ship-header {
+    background-color: rgb(0, 0, 0);
+}
+
+.home-button {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.episodes-button {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.about-button {
+    grid-column: 4/5;
+    grid-row: 1/2;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.music-button {
+    grid-column: 5/6;
+    grid-row: 1/2;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.credits-button {
+    grid-column: 6/7;
+    grid-row: 1/2;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: rgb(75, 75, 75);
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+    transform: scale(1.1);
+}
+
+.vr-ship-a:link,
+.vr-ship-a:visited,
+.vr-ship-a:active {
+  text-decoration: none;
+  color: rgb(255, 196, 0);
+}
+
+.vr-ship-a:hover {
+    color: rgb(255, 153, 0);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.button {
+    background-color: rgb(233, 233, 233);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4vh;
+    width: 100%;
+    margin: auto;
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    transition: 0.1s
+}
+
+.button-vr-ship {
+    background-color: rgb(15, 7, 84);
+}
+
+.button:active {
+    background-color: rgb(128, 128, 128);
+    transform: scale(0.9);
+}
+
+.button-vr-ship:active {
+    background-color: rgb(6, 2, 42);
+}
+
+.button-here {
+    background-color: rgb(128, 128, 128);
+    color: rgb(176, 176, 176);
+}
+
+/* Home */
+
+.title {
+    margin-top: 14vh;
+    width: 100vw;
+}
+
+.ho-container {
+    margin: 5vh 5vh 5vh 5vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 5vh;
+    max-height: 70vw;
+}
+
+.ho-container p {
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.main-cover {
+    height: 41vw;
+    grid-row: 1/4;
+    grid-column: 2/3;
+    margin: auto;
+}
+
+.news {
+    background-color: rgb(176, 176, 176);
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    grid-row: 2/4;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.news-title {
+    margin: auto;
+    color: rgb(255, 255, 255);
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 150px;
+}
+
+.news p {
+    margin: 5%;
+}
+
+.playlist {
+    background-color: rgb(176, 176, 176);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 30px;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.c-s {
+    font-size: 50px;
+    color: rgb(75, 75, 75);
+}
+
+.socials {
+    background-color: rgb(176, 176, 176);
+    height: 11vw;
+    padding: 5%;
+    color: rgb(0, 0, 0);
+    display: grid;
+    grid-row: 3/4;
+    grid-column: 3/4;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 1vw;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.socials-text {
+    grid-column: 2/3;
+    font-size: 1.35vw;
+}
+
+.socials-img {
+    grid-column: 1/2;
+    height: 5vw;
+}
+
+/* Episodes */
+
+.ep-container {
+    margin: 16vh 13vh 13vh 13vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5vh;
+}
+
+.ep-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.ep {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    transition: 0.2s;
+    opacity: 0.65;
+}
+
+.ep:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.ep-drop-down-content {
+    display: none;
+    background-image: url(../Images/drop_down_menu.PNG);
+    background-size: 100% 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+}
+
+.ep-menu-button {
+    border: none;
+    background-color: rgb(233, 233, 233);
+    margin-top: 5%;
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.big-button {
+    margin-top: 50%;
+    height: 17.5%;
+    width: 70%;
+    font-size: 5vw;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.small-button {
+    height: 10%;
+    width: 45%;
+    font-size: 3vw;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.ep-drop-down-content a {
+    padding-left: 23%;
+    padding-right: 23%;
+}
+
+.ep-menu-button:hover {
+    transform: scale(1.1);
+}
+
+.show {
+    display: block;
+}
+
+/* About */
+
+.ab-container {
+    background-color: rgb(176, 176, 176);
+    margin: 12.5vh 5vh 2vh 5vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 5vh;
+    padding-left: 4%;
+    padding-right: 4%;
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    clip-path: polygon(0 0, 99% 0, 100% 100%, 1% 100%);
+}
+
+.about-dance {
+    height: 21.5vw;
+}
+
+/* Music */
+
+.mu-container {
+    margin: 12.5vh 5vh 0vh 80vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 5vh;
+}
+
+.mu-audio {
+    grid-column: 1/1;
+    background-color: rgb(159, 159, 159);
+    gap: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    clip-path: polygon(1% 1%, 100% 0, 99% 99%, 2% 99%);
+}
+
+.mu-audio p {
+    color: rgb(255, 255, 255);
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+    margin-left: 5%;
+}
+
+.mu-audio:hover {
+    transform: scale(1.05);
+}
+
+.audio {
+    margin-right: 5%;
+}
+
+.vinyl {
+    position: absolute;
+    height: 90vh;
+}
+
+.coming-soon {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.coming-soon img {
+    width: 40vw;
+    grid-row: 2/3;
+    margin: auto;
+}
+
+.coming-soon p {
+    margin: 0;
+    color: rgb(255, 255, 255);
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 150px;
+    text-align: center;
+}
+
+/* Credits */
+
+.cre-container {
+    margin: 12.5vh 5vh 5vh 5vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5vh;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cre-bio {
+    background-color: rgb(159, 159, 159);    
+    width: calc(50% - 2.5vh);
+    gap: 3vh;
+    transition: 0.2s;
+    clip-path: polygon(0 0, 99% 0, 100% 100%, 1% 100%);
+}
+
+.cre-text {
+    width: 100%;
+    text-align: center;
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100px;
+    letter-spacing: 1vw;
+    margin: 0;
+}
+
+.cre-bio img {
+    margin: 20%;
+}
+
+.cre-bio:hover {
+    transform: scale(1.05);
+}
+
+/* Pages */
+
+.container {
+    margin: 2%;
+    margin-top: 10vh;
+    display: grid;
+    grid-template-columns: 1.75fr 1.25fr;
+    grid-template-rows: 7fr 1fr;
+    height: 85vh;
+    width: 96vw;
+    gap: 5vh;
+}
+
+.img {
+    margin: auto;
+    width: 92%;
+    grid-column: 1/2;
+    grid-row: 1/3;
+    border: 1vh solid rgb(0, 0, 0);
+}
+
+.text {
+    background-color: rgba(176, 176, 176, 0.7);
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    text-align: left;
+    padding: 3vh;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    overflow-y: auto;
+    max-height: 80vh;
+    clip-path: polygon(1% 1%, 100% 0, 99% 99%, 2% 99%);
+}
+
+.text-vr-ship {
+    color: rgb(255, 255, 255);
+    background-color: rgba(42, 45, 135, 0.7);
+}
+
+.text-biscord {
+    background-image: linear-gradient(rgb(34, 34, 34), rgb(56, 56, 56));
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 4vh;
+    padding: 3vh;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    overflow-y: auto;
+    max-height: 80vh;
+    clip-path: polygon(1% 1%, 100% 0, 100% 100%, 2% 99%);
+}
+
+.text-biscord p {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.biscord-body {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 5fr;
+    grid-column: 1/2;
+    width: 100%;
+    gap: 3vh;
+}
+
+.pfp {
+    height: 9vh;
+    border-radius: 50%;
+    margin-left: 0.5vw;
+}
+
+.top,
+.bot {
+    grid-row: 1/2;
+    grid-column: 2/3;
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3vh;
+}
+
+.top {
+    color: rgb(255, 255, 255);
+    z-index: 1;
+}
+
+.bot {
+    color: rgb(255, 255, 255);
+    padding-top: 4vh;
+}
+
+.text p {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.switch {
+    background-color: rgb(176, 176, 176, 0.7);
+    grid-column: 2/3;
+    grid-row: 2/3;
+    height: 100%;
+    font-family: "Jersey 10", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 9vh;
+    text-align: center;
+    word-spacing: 100px;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.switch-vr-ship {
+    background-color: rgba(42, 45, 135, 0.7);
+    color: rgb(255, 196, 0);
+    user-select: none;
+}
+
+.text-close {
+    word-spacing: normal;
+    margin: 0;
+}
+
+/* Colours */
+
+.pu {
+    color: rgb(129, 17, 203);
+}
+
+.ye {
+    color: rgb(255, 166, 0);
+}
+
+.ka {
+    color: rgb(20, 183, 63);
+}
+
+.a {
+    color: rgb(208, 13, 13);
+}
+
+.ma {
+    color: rgb(208, 13, 195);
+}
+
+.gl {
+    color: rgb(208, 81, 13);
+}
+
+.me {
+    color: rgb(247, 37, 37);
+}
+
+.ep {
+    color: rgb(70, 13, 108) ;
+}
+
+.sc {
+    color: rgb(255, 208, 253);
+}
+
+.bl {
+    color: rgb(60, 79, 255);
+}
+
+.bla {
+    color: rgb(0, 0, 0);
+}
+
+/* Media Query*/
+@media (max-width: 900px) {
+
+/* Episodes */
+
+.ep-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+}
+
+/* Portrait Mode */
+@media (max-width: 750px) {
+
+/* Header */
+
+.header {
+    width: 96vw;
+}
+
+/* General */
+
+.button {
+    font-size: 15px;
+}
+
+/* Home */
+
+.title {
+    margin-top: 27.5vh;
+}
+
+.ho-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    row-gap: 5vh;
+}
+
+.main-cover {
+    height: 110vw;
+    grid-row: 1/2;
+    grid-column: 1/2;
+    margin: auto;
+}
+
+.news {
+    grid-row: 3/4;
+    height: 60vw;
+}
+
+.playlist {
+    margin: auto;
+    width: 100%;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.socials {
+    height: 25vh;
+    grid-row: 5/6;
+    grid-column: 1/2;
+    grid-template-columns: 1fr 1fr;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+/* Episodes */
+
+.ep-container {
+    margin: 27.5vh 5vh 5vh 5vh;
+}
+
+.big-button {
+    font-size: 7vw;
+}
+
+.small-button {
+    font-size: 5vw;
+}
+
+/* About */
+
+.ab-container {
+    margin-top: 27.5vh;
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+/* Music */
+
+.mu-container {
+    margin-top: 27.5vh;
+}
+
+.coming-soon img {
+    width: 60vw;
+}
+
+/* Credits */
+
+.cre-container {
+    margin-top: 27.5vh;
+}
+
+.cre-bio {
+    width: 100% !important;
+    flex-basis: 100%;
+}
+
+.cre-text {
+    font-size: 50px;
+}
+
+/* Pages */
+
+.header {
+    height: 20vh;
+    padding: 2%;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
+.home-button {
+    width: 50vw;
+    grid-column: 1/3;
+    grid-row: 1/2;
+}
+
+.episodes-button {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.about-button {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+.music-button {
+    grid-column: 1/2;
+    grid-row: 3/4;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.credits-button {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.container {
+    margin-top: 27.5vh;
+    height: 125vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr .75fr;
+}
+
+.img {
+    grid-row: 1/2;
+}
+
+.text {
+    margin-left: 2%;
+    margin-right: 2%;
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.text-biscord {
+    margin-left: 2%;
+    margin-right: 2%;
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.switch {
+    grid-column: 1/2;
+    grid-row: 3/4;
+    height: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+}
+
+@media (max-width: 550px) {
+
+/* Episodes */
+
+.big-button {
+    font-size: 6vw;
+}
+
+.small-button {
+    font-size: 4vw;
+}
+
+/* Music */
+
+.coming-soon p {
+    font-size: 100px;
+}
+
+}
+
+@media (max-width: 1250px) {
+
+/* Home */
+
+.ho-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 1fr 3fr 1fr;
+    row-gap: 5vh;
+}
+
+.main-cover {
+    height: 110vw;
+    grid-row: 4/5;
+    grid-column: 1/3;
+    margin: auto;
+}
+
+.news {
+    grid-row: 2/4;
+    grid-column: 1/2;
+    height: 40vw;
+}
+
+.playlist {
+    margin: auto;
+    width: 100%;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.playlist p {
+    margin: 0;
+    padding: 5%;
+}
+
+.c-s {
+    position: relative;
+}
+
+.empty {
+    display: none;
+}
+
+.socials {
+    height: 22.6vw;
+    grid-row: 3/4;
+    grid-column: 2/3;
+    grid-template-columns: 1fr 1fr;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.socials-text {
+    font-size: 3vw;
+}
+
+.socials-img {
+    height: 10vw;
+}
+
+/* Music */
+
+.mu-container {
+    margin-left: 5vh;
+}
+
+.vinyl {
+    display: none;
+}
+
+.coming-soon img {
+    width: 60vw;
+}
+
+}
+
+@media (max-width: 450px) {
+
+/* Episodes */
+
+.ep-container {
+    grid-template-columns: 1fr;
+}
+
+.ep {
+    opacity: 1;
+}
+
+.big-button {
+    font-size: 13vw;
+}
+
+.small-button {
+    font-size: 9vw;
+}
+
+}

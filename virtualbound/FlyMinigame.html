@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIT THE FLY!!</title>
+    <script defer src="Backend/PageHandler.js"></script>
+    <script defer type="module" src="Backend/FlyMinigame.js"></script>
+    <link rel="stylesheet" href="./Style/style.css">
+    <link rel="stylesheet" href="./Style/FlyMinigame.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img src="./Images/web_backgroud.png" class="background" alt="">
+    <header class="header">
+        <a href="./home.html" class="home-button button">Home</a>
+        <a href="./episodes.html" class="episodes-button button">Episodes</a>
+        <a href="./about.html" class="about-button button">About</a>
+        <a href="./music.html" class="music-button button">Music</a>
+        <a href="./credits.html" class="credits-button button">Credits</a>
+    </header>
+    <div class="container">
+        <div class="game-area">
+            <img src="./Images/fly_minigame/fly_game_background.PNG" class="game-bg" alt="Game background">
+            <img id="fly" src="./Images/fly_minigame/fly_game_fly_1.PNG" alt="Fly">
+            <img id="swatter" src="./Images/fly_minigame/fly_game_swat.PNG" alt="Swatter">
+        </div>
+        <div class="text">
+            <p id="game-text"></p>
+            <p id="result-text"></p>
+        </div>
+        <div class="switch">
+            <a id="previous" onclick="prevPage()" class="world-a">&lt;Previous</a>
+            <a id="next" onclick="nextPage()" class="world-a">Next&gt;</a>
+        </div>
+    </div>
+</body>
+</html>

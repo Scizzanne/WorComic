@@ -150,10 +150,12 @@ function switchStyles(theCurrPage) {
     }
 }
 
+// indices 102, 103, 104, and 105 are easter eggs and separate from the flow. 
+
 // edge cases (0 indexed) so [index = page - 1]
 
 // we need to find a way to have other js files use this file and their own logic/functions for each html type
-// html types: Interactable.html, FlyMinigame.html, and P_ChitterChatter_Time.html
+// html types: Interactable.html, FlyMinigame.html, and ChitChatTime.html
 
 // index 5 is a different html and can branch off to 2 other indices - uses Interactable.html
 // route 1: index 6, which will go sequentially until index 10
@@ -185,6 +187,6 @@ function switchStyles(theCurrPage) {
 
 // index 76 leads to the FlyMinigame.html, which then leads to index 80
 
-// index 85, 91, 94, 95, 96, 97, and 99 use P_ChitterChatter_Time.html
+// index 85, 91, 94, 95, 96, 97, and 99 use ChitChatTime.html
  
 

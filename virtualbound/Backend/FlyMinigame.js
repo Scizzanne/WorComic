@@ -25,6 +25,7 @@ const swatter = document.getElementById('swatter');
 const debugBox = document.createElement('div');
 const flyDebugBox = document.createElement('div');
 const resultMedia = document.createElement('video');
+const flyMusic = document.getElementById('fly-music');
 
 // initial conditions
 nextButton.style.display = 'none';
@@ -40,12 +41,36 @@ function nextPageFly() {
     // go to next page (./Images/81.png)
     // index 80 in Pages.json
 }
+function startMusic() {
+    if (!flyMusic) {
+        console.log("flyMusic not found");
+        return;
+    }
 
+    console.log("Trying to play music");
+
+    flyMusic.currentTime = 0;
+    flyMusic.loop = true;
+
+    flyMusic.play().then(() => {
+        console.log("Music started");
+    }).catch(err => {
+        console.log("Play failed:", err);
+    });
+}
+function stopMusic() {
+    if (!flyMusic) return;
+
+    flyMusic.pause();
+    flyMusic.currentTime = 0;
+}
 function checkGameState() {
     if (gameActive) {
         nextButton.style.display = 'none';
         gameArea.style.cursor = 'none';
     } else {
+        stopMusic();
+
         // Show cursor again
         gameArea.style.cursor = 'auto';  // or 'default'
 
@@ -98,6 +123,7 @@ function startTimer() {
         timeRemaining -= 100;
         if (timeRemaining <= 0) {
             clearInterval(interval);
+            stopMusic();
             flyController.enterSleepMode(); 
         }
     }, 100);
@@ -123,6 +149,13 @@ prevButton.addEventListener('click', () => {
         window.location.reload();
     }
 });
+
+// ACTIVATE MUSIC
+window.addEventListener('mousedown', () => {
+    if (gameActive) {
+        //startMusic();
+    }
+}, { once: true });
 
 // Initialize fly controller
 window.addEventListener('DOMContentLoaded', () => {
@@ -186,7 +219,10 @@ if (gameArea) {
         if (!gameActive) return;
 
         checkHitOrMiss();        
-        gameActive = false;     
+        gameActive = false; 
+        
+        stopMusic();
+
         checkGameState(); 
     });
 }

@@ -14,6 +14,17 @@ let outlineImages = [];
 
 console.log(currInteract);
 
+document.addEventListener("DOMContentLoaded", initInteract);
+
+async function initInteract() {
+    await initRouter();
+
+    const currPage = getCurrentPage();
+    currInteract = currPage;
+
+    loadPage();
+}
+
 // gather elements
 const next = document.getElementById("next");
 const previous = document.getElementById("previous");
@@ -39,8 +50,6 @@ window.onkeydown = function(event) {
     }
 }
 
-loadPage();
-
 // Function
 function nextPageIn() { // goes to next page depending on current page
 
@@ -60,9 +69,11 @@ function loadPage() {
 }
 function purpleBoatSelect() {
     console.log("ourple");
+    goToPage(6);
 }
 function orangeBoatSelect() {
     console.log("orange");
+    goToPage(11);
 }
 function bedSelect() {
     console.log("bed");

@@ -7,6 +7,10 @@ const INTERACT_PAGES = [5, 30, 49, 64];
 
 // Globals
 let currInteract = INTERACT_PAGES[0];
+let isHovering = false;
+let blinkOn= true;
+let blinkInterval = null;
+let outlineImages = [];
 
 console.log(currInteract);
 
@@ -21,7 +25,21 @@ const interactBG = document.querySelector(".interact-bg");
 next.hidden = true;
 //previous.hidden = true;
 
-loadInteract5();
+window.onkeydown = function(event) { 
+    if (DEBUG_MODE) {
+        if (event.key  === '1') { 
+            loadInteract5();
+        } else if (event.key  === '2') { 
+            loadInteract30();
+        } else if (event.key  === '3') { 
+            loadInteract49();
+        } else if (event.key  === '4') { 
+            loadInteract64();
+        } 
+    }
+}
+
+loadPage();
 
 // Function
 function nextPageIn() { // goes to next page depending on current page
@@ -31,8 +49,44 @@ function prevPageIn() {
 
 }
 
-function buildHitbox({ top, left, width, height, onEnter, onLeave }) {
+function loadPage() {
+    // this is where this script decides which page to load 
+    switch (currInteract) {
+        case 5: loadInteract5(); break;
+        case 30: loadInteract30(); break;
+        case 49: loadInteract49(); break;
+        case 64: loadInteract64(); break;
+    }
+}
+function purpleBoatSelect() {
+    console.log("ourple");
+}
+function orangeBoatSelect() {
+    console.log("orange");
+}
+function bedSelect() {
+    console.log("bed");
+}
+function recordsSelect() {
+    console.log("records");
+}
+function shelfSelect() {
+    console.log("shelf");
+}
+function toasterSelect() {
+    console.log("toaster");
+}
+function coffeeSelect() {
+    console.log("coffee");
+}
+function fruitBowlSelect() {
+    console.log("fruit bowl");
+}
+
+function buildHitbox({ top, left, width, height, onEnter, onLeave, onClick }) {
     const hitbox = document.createElement("div");
+
+    hitbox.classList.add("hitbox");
 
     hitbox.style.position = "absolute";
     hitbox.style.top = top;
@@ -46,16 +100,66 @@ function buildHitbox({ top, left, width, height, onEnter, onLeave }) {
         hitbox.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
     }
 
-    hitbox.addEventListener("mouseenter", onEnter);
-    hitbox.addEventListener("mouseleave", onLeave);
+    hitbox.addEventListener("mouseenter", () => {
+        isHovering = true;
+
+        outlineImages.forEach(img => img.style.opacity = "0");
+
+        onEnter();
+    });
+
+    hitbox.addEventListener("mouseleave", () => {
+        isHovering = false;
+        onLeave();
+    });
+
+    if (onClick) {
+        hitbox.addEventListener("mousedown", onClick);
+    }
 
     interactArea.appendChild(hitbox);
 
     return hitbox;
 }
 
+function resetInteract() {
+    // stop blinking loop
+    if (blinkInterval) {
+        clearInterval(blinkInterval);
+        blinkInterval = null;
+    }
+
+    // remove ONLY dynamic elements
+    const elementsToRemove = interactArea.querySelectorAll(
+        ".interact-parts, .hitbox"
+    );
+
+    elementsToRemove.forEach(elem => elem.remove());
+
+    // reset globals
+    outlineImages = [];
+    isHovering = false;
+    blinkOn = true;
+}
+
+function startBlinking() {
+    if (blinkInterval) return;
+
+    blinkInterval = setInterval(() => {
+        if (!isHovering) {
+            blinkOn = !blinkOn;
+
+            outlineImages.forEach(img => {
+                img.style.opacity = blinkOn ? "1" : "0";
+            });
+        }
+    }, 750); // ms
+}
+
 // load interactable pages
 function loadInteract5() {
+    resetInteract();
+    
     currInteract = 5;
 
     interactBG.src = "./Images/id_6_img/6_background.png";
@@ -76,8 +180,11 @@ function loadInteract5() {
     interactArea.appendChild(orangeBoat);
     interactArea.appendChild(foreground);
 
-    purpleBoat.style.opacity = "0"; // initial
+    purpleBoat.style.opacity = "0";
+    outlineImages.push(purpleBoat);
+
     orangeBoat.style.opacity = "0";
+    outlineImages.push(orangeBoat);
 
     // hitbox for purple boat
     buildHitbox({
@@ -86,7 +193,8 @@ function loadInteract5() {
         width: "43%",
         height: "50%",
         onEnter: () => purpleBoat.style.opacity = "1",
-        onLeave: () => purpleBoat.style.opacity = "0"
+        onLeave: () => purpleBoat.style.opacity = "0",
+        onClick: () => purpleBoatSelect()
     });
 
     // hitbox for orange boat
@@ -96,11 +204,16 @@ function loadInteract5() {
         width: "49%",
         height: "72.5%",
         onEnter: () => orangeBoat.style.opacity = "1",
-        onLeave: () => orangeBoat.style.opacity = "0"
+        onLeave: () => orangeBoat.style.opacity = "0",
+        onClick: () => orangeBoatSelect()
     });
-}
+
+    startBlinking();
+} 
 
 function loadInteract30() {
+    resetInteract();
+    
     currInteract = 30;
 
     interactBG.src = "./Images/id_31_img/31_background.png";
@@ -127,8 +240,13 @@ function loadInteract30() {
     interactArea.appendChild(foreground);
 
     bed.style.opacity = "0"; // initial
+    outlineImages.push(bed);
+
     records.style.opacity = "0";
+    outlineImages.push(records);
+
     shelf.style.opacity = "0";
+    outlineImages.push(shelf);
 
     // hitbox for bed
     buildHitbox({ // lower hitbox
@@ -137,7 +255,8 @@ function loadInteract30() {
         width: "35%",
         height: "20%",
         onEnter: () => bed.style.opacity = "1",
-        onLeave: () => bed.style.opacity = "0"
+        onLeave: () => bed.style.opacity = "0",
+        onClick: () => bedSelect()
     });
     buildHitbox({ // upper hitbox
         top: "45%",
@@ -145,7 +264,8 @@ function loadInteract30() {
         width: "20%",
         height: "11%",
         onEnter: () => bed.style.opacity = "1",
-        onLeave: () => bed.style.opacity = "0"
+        onLeave: () => bed.style.opacity = "0",
+        onClick: () => bedSelect()
     });
 
     // hitbox for records
@@ -155,7 +275,8 @@ function loadInteract30() {
         width: "10%",
         height: "12.5%",
         onEnter: () => records.style.opacity = "1",
-        onLeave: () => records.style.opacity = "0"
+        onLeave: () => records.style.opacity = "0",
+        onClick: () => recordsSelect()
     });
 
     // hitbox for shelf
@@ -165,7 +286,8 @@ function loadInteract30() {
         width: "35%",
         height: "18%",
         onEnter: () => shelf.style.opacity = "1",
-        onLeave: () => shelf.style.opacity = "0"
+        onLeave: () => shelf.style.opacity = "0",
+        onClick: () => shelfSelect()
     });
     buildHitbox({
         top: "20%",
@@ -173,11 +295,16 @@ function loadInteract30() {
         width: "45%",
         height: "18%",
         onEnter: () => shelf.style.opacity = "1",
-        onLeave: () => shelf.style.opacity = "0"
+        onLeave: () => shelf.style.opacity = "0",
+        onClick: () => shelfSelect()
     });
+
+    startBlinking();
 }
 
 function loadInteract49() {
+    resetInteract();
+
     currInteract = 49;
     interactBG.src = "./Images/id_50_img/50_background.png";
 
@@ -198,8 +325,13 @@ function loadInteract49() {
     interactArea.appendChild(fruitBowl);
 
     toaster.style.opacity = "0"; // initial
+    outlineImages.push(toaster);
+
     coffee.style.opacity = "0";
+    outlineImages.push(coffee);
+
     fruitBowl.style.opacity = "0";
+    outlineImages.push(fruitBowl);
 
     // toaster hitbox
     buildHitbox({ 
@@ -208,7 +340,8 @@ function loadInteract49() {
         width: "15%",
         height: "16%",
         onEnter: () => toaster.style.opacity = "1",
-        onLeave: () => toaster.style.opacity = "0"
+        onLeave: () => toaster.style.opacity = "0",
+        onClick: () => toasterSelect()
     });
 
     // coffee hitbox
@@ -218,7 +351,8 @@ function loadInteract49() {
         width: "12%",
         height: "15%",
         onEnter: () => coffee.style.opacity = "1",
-        onLeave: () => coffee.style.opacity = "0"
+        onLeave: () => coffee.style.opacity = "0",
+        onClick: () => coffeeSelect()
     });
 
     // fruitBowl hitbox
@@ -228,12 +362,16 @@ function loadInteract49() {
         width: "17%",
         height: "17%",
         onEnter: () => fruitBowl.style.opacity = "1",
-        onLeave: () => fruitBowl.style.opacity = "0"
+        onLeave: () => fruitBowl.style.opacity = "0",
+        onClick: () => fruitBowlSelect()
     });
 
+    startBlinking();
 }
 
 function loadInteract64() {
+    resetInteract();
+
     currInteract = 64;
 
     const sweaters = [];
@@ -263,6 +401,7 @@ function loadInteract64() {
         sweater.dataset.choice = config.letter;
 
         interactArea.appendChild(sweater);
+        outlineImages.push(sweater);
         sweaters.push(sweater);
 
         buildHitbox({
@@ -271,7 +410,8 @@ function loadInteract64() {
             width: config.width,
             height: config.height,
             onEnter: () => sweater.style.opacity = "1",
-            onLeave: () => sweater.style.opacity = "0"
+            onLeave: () => sweater.style.opacity = "0",
+            onClick: () => handleSweaterClick(config.letter)
         });
     });
 
@@ -280,35 +420,45 @@ function loadInteract64() {
     foreground.classList.add("interact-parts", "foreground");
 
     interactArea.appendChild(foreground);
+
+    startBlinking();
 }
 
-function handleSweaterClick(theEvent) { // implement later
-    const choice = theEvent.currentTarget.dataset.choice;
 
-    switch(choice) {
+function handleSweaterClick(theEvent) { // implement later
+
+    switch(theEvent) {
         case "a": 
             // go to index 65 (different html)
+            console.log("Selection A");
             break;
         case "b": 
             // go to index 66 (different html)
+            console.log("Selection B");
             break;
         case "c": 
             // go to index 67 (different html) 
+            console.log("Selection C");
             break;
         case "d": 
             // go to index 68 (different html)
+            console.log("Selection D");
             break;
         case "e": 
             // go to index 69 (different html)
+            console.log("Selection E");
             break;
         case "f": 
             // go to ndex 70 (different html)
+            console.log("Selection F");
             break;
         case "g": 
             // go to index 71 (different html)
+            console.log("Selection G");
             break;
         case "h": 
             // go to index 72 (different html)
+            console.log("Selection H");
             break;
     }
 }

@@ -76,3 +76,44 @@ function goToPage(index) {
             window.location.replace("Page.html");
     }
 }
+
+// indices 102, 103, 104, and 105 are easter eggs and separate from the flow. 
+
+// edge cases (0 indexed) so [index = page - 1]
+
+// we need to find a way to have other js files use this file and their own logic/functions for each html type
+// html types: Interactable.html, FlyMinigame.html, and ChitChatTime.html
+
+// index 5 is a different html and can branch off to 2 other indices - uses Interactable.html
+// route 1: index 6, which will go sequentially until index 10
+// route 2: index 11, which will go sequentially until index 13
+// both routes (index 10 & 13) head back to index 5, clicking on next leads to index 14
+
+// index 30 is another different html and can branch off to 3 other indices - uses Interactable.html
+// route 1: index 31, which will go sequentially until index 34
+// route 2: index 35, which will go sequentially until index 37
+// route 3: index 38, which will go sequentially until index 40
+// all routes (index 34, 37 & 40) head back to index 30, clicking on next leads to index 41
+
+// index 49 is another different html and can branch off to  other indices - uses Interactable.html
+// route 1: index 50, which will go sequentially until index 53
+// route 2: index 54, which will go sequentially until index 55
+// route 3: index 56
+// all routes (index 53, 55 & 56) head back to index 49, clicking on next leads to index 57
+
+// index 64 is another different html and can branch off to 8 other indices - uses Interactable.html
+// route 1: index 65
+// route 2: index 66
+// route 3: index 67
+// route 4: index 68
+// route 5: index 69
+// route 6: index 70
+// route 7: index 71
+// route 8: index 72
+// all routes converge to index 74, hitting previous heads back to 64
+
+// index 76 leads to the FlyMinigame.html, which then leads to index 80
+
+// index 85, 91, 94, 95, 96, 97, and 99 use ChitChatTime.html
+ 
+

@@ -36,7 +36,7 @@ window.onkeydown = function(event) {
     }
 };
 
-// Load JSON
+// Load JSON - REPLACE WITH ROUTER
 async function loadPages() {
     try {
         const response = await fetch("./Backend/Pages.json");

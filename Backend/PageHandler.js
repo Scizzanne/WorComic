@@ -221,5 +221,7 @@ const INTERACTABLE_NAV = {
     72: { next: 74, prev: 64 },
     74: { next: 75, prev: 64 }, // end
 
+    80: { next: 81, prev: 77 }, // end
+
     105: { next: 40, prev: 40 },
 };

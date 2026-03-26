@@ -507,18 +507,18 @@ function loadInteract49() {
     const page = getPageData(currInteract); // grab page
     interactText.innerText = page?.text || ""; // set text
 
-    interactBG.src = "./Images/id_50_img/50_background.png";
+    interactBG.src = "./Images/id_50_img/50_background.PNG";
 
     const toaster = document.createElement("img");
-    toaster.src = "./Images/id_50_img/50_clearlyyouownatoaster.png";
+    toaster.src = "./Images/id_50_img/50_clearlyyouownatoaster.PNG";
     toaster.classList.add("interact-parts", "kitchen");
 
     const coffee = document.createElement("img");
-    coffee.src = "./Images/id_50_img/50_coffee.png";
+    coffee.src = "./Images/id_50_img/50_coffee.PNG";
     coffee.classList.add("interact-parts", "kitchen");
 
     const fruitBowl = document.createElement("img");
-    fruitBowl.src = "./Images/id_50_img/50_fruit_bowl.png";
+    fruitBowl.src = "./Images/id_50_img/50_fruit_bowl.PNG";
     fruitBowl.classList.add("interact-parts", "kitchen");
 
     interactArea.appendChild(toaster);

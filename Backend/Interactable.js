@@ -256,18 +256,18 @@ function loadInteract5() {
     const page = getPageData(currInteract); // grab page
     interactText.innerText = page?.text || ""; // set text
 
-    interactBG.src = "./Images/id_6_img/6_background.png";
+    interactBG.src = "./Images/id_6_img/6_background.PNG";
 
     const purpleBoat = document.createElement("img");
-    purpleBoat.src = "./Images/id_6_img/6_purple_boat.png";
+    purpleBoat.src = "./Images/id_6_img/6_purple_boat.PNG";
     purpleBoat.classList.add("interact-parts", "boat");
 
     const orangeBoat = document.createElement("img");
-    orangeBoat.src = "./Images/id_6_img/6_orange_boat.png";
+    orangeBoat.src = "./Images/id_6_img/6_orange_boat.PNG";
     orangeBoat.classList.add("interact-parts", "boat");
 
     const foreground = document.createElement("img");
-    foreground.src = "./Images/id_6_img/6_foreground.png";
+    foreground.src = "./Images/id_6_img/6_foreground.PNG";
     foreground.classList.add("interact-parts", "foreground");
 
     interactArea.appendChild(purpleBoat);
@@ -388,22 +388,22 @@ function loadInteract30() {
     const page = getPageData(currInteract); // grab page
     interactText.innerText = page?.text || ""; // set text
 
-    interactBG.src = "./Images/id_31_img/31_background.png";
+    interactBG.src = "./Images/id_31_img/31_background.PNG";
 
     const bed = document.createElement("img");
-    bed.src = "./Images/id_31_img/31_bed.png";
+    bed.src = "./Images/id_31_img/31_bed.PNG";
     bed.classList.add("interact-parts", "bedroom");
 
     const records = document.createElement("img");
-    records.src = "./Images/id_31_img/31_records.png";
+    records.src = "./Images/id_31_img/31_records.PNG";
     records.classList.add("interact-parts", "bedroom");
 
     const shelf = document.createElement("img");
-    shelf.src = "./Images/id_31_img/31_shelf.png";
+    shelf.src = "./Images/id_31_img/31_shelf.PNG";
     shelf.classList.add("interact-parts", "bedroom");
 
     const foreground = document.createElement("img");
-    foreground.src = "./Images/id_31_img/31_foreground.png";
+    foreground.src = "./Images/id_31_img/31_foreground.PNG";
     foreground.classList.add("interact-parts", "foreground");
 
     interactArea.appendChild(bed);

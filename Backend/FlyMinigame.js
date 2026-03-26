@@ -132,13 +132,13 @@ function checkGameState() {
 }
 function loadWin() {
     nextButton.style.display = 'inline';
-    resultMedia.src = './Images/80.mov';
+    resultMedia.src = './Images/80.MOV';
     
     const resultText = document.getElementById('result-text');
     if (resultText) resultText.textContent = "SWATTED";
 }
 function loadLose() {
-    resultMedia.src = './Images/79.mov';
+    resultMedia.src = './Images/79.MOV';
     
     const resultText = document.getElementById('result-text');
     if (resultText) resultText.textContent = "Don't swat yourself dumbass!";

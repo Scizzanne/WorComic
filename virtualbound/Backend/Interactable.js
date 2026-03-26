@@ -1,9 +1,6 @@
-// access Pages.json
-// grab text of various indices
-
 // Constants
-const DEBUG_MODE = true;
-const INTERACT_PAGES = [5, 30, 40, 49, 64]; 
+const DEBUG_MODE = false;
+const INTERACT_PAGES = [5, 16, 30, 40, 49, 64]; 
 
 // Globals
 let currInteract = INTERACT_PAGES[0];
@@ -45,13 +42,15 @@ window.onkeydown = function(event) {
     if (DEBUG_MODE) {
         if (event.key  === '1') { 
             loadInteract5(); currInteract = 5; 
-        } else if (event.key  === '2') { 
-            loadInteract30(); currInteract = 30; setWebStyle();
+        } else if (event.key  === '2') {
+            loadInteract16(); currInteract = 16; 
         } else if (event.key  === '3') { 
-            loadInteract49(); currInteract = 49; setWebStyle();
+            loadInteract30(); currInteract = 30; setWebStyle();
         } else if (event.key  === '4') { 
+            loadInteract49(); currInteract = 49; setWebStyle();
+        } else if (event.key  === '5') { 
             loadInteract64(); currInteract = 64; setWebStyle();
-        } else if (event.key === '5') {
+        } else if (event.key === '6') {
             loadInteract40(); currInteract = 40; setWebStyle();
         }
     }
@@ -82,13 +81,17 @@ function loadPage() {
             loadInteract5(); 
             nextIndex = 14;
             break;
+        case 16:
+            loadInteract16();
+            nextIndex = 20;
+            break;
         case 30: 
             loadInteract30(); 
             nextIndex = 41;
             break;
         case 40:
             loadInteract40();
-            nextIndex = 41;
+            nextIndex = 30;
             break;
         case 49: 
             loadInteract49(); 
@@ -107,17 +110,29 @@ function orangeBoatSelect() {
     console.log("orange");
     goToPage(11);
 }
+function cannonSelect() {
+    console.log("cannon");
+    goToPage(17);
+}
+function swordSelect() {
+    console.log("sword");
+    goToPage(18);
+}
+function fruitsSelect() {
+    console.log("fruits");
+    goToPage(19);
+}
 function bedSelect() {
     console.log("bed");
     goToPage(31);
 }
 function recordsSelect() {
     console.log("records");
-    goToPage(35);
+    goToPage(38);
 }
 function shelfSelect() {
     console.log("shelf");
-    goToPage(37);
+    goToPage(35);
 }
 function toasterSelect() {
     console.log("toaster");
@@ -290,6 +305,81 @@ function loadInteract5() {
     startBlinking();
 } 
 
+function loadInteract16() {
+    setVRStyle();
+    resetInteract();
+    
+    currInteract = 16;
+
+    const page = getPageData(currInteract); // grab page
+    interactText.innerText = page?.text || ""; // set text
+
+    interactBG.src = "./Images/id_17_img/17_background.png";
+
+    const cannon = document.createElement("img");
+    cannon.src = "./Images/id_17_img/17_cannon.png";
+    cannon.classList.add("interact-parts", "think");
+
+    const sword = document.createElement("img");
+    sword.src = "./Images/id_17_img/17_sword.png";
+    sword.classList.add("interact-parts", "think");
+
+    const fruits = document.createElement("img");
+    fruits.src = "./Images/id_17_img/17_fruits.png";
+    fruits.classList.add("interact-parts", "think");
+
+    const foreground = document.createElement("img");
+    foreground.src = "./Images/id_17_img/17_foreground.png";
+    foreground.classList.add("interact-parts", "foreground");
+
+    interactArea.appendChild(cannon);
+    interactArea.appendChild(sword);
+    interactArea.appendChild(fruits);
+    interactArea.appendChild(foreground);
+
+    cannon.style.opacity = "0"; // initial
+    outlineImages.push(cannon);
+
+    sword.style.opacity = "0";
+    outlineImages.push(sword);
+
+    fruits.style.opacity = "0";
+    outlineImages.push(fruits);
+
+    // hitbox for think
+    buildHitbox({ 
+        top: "13%",
+        left: "13%",
+        width: "23%",
+        height: "28%",
+        onEnter: () => cannon.style.opacity = "1",
+        onLeave: () => cannon.style.opacity = "0",
+        onClick: () => cannonSelect()
+    });
+
+    buildHitbox({ 
+        top: "5%",
+        left: "41%",
+        width: "23%",
+        height: "28%",
+        onEnter: () => sword.style.opacity = "1",
+        onLeave: () => sword.style.opacity = "0",
+        onClick: () => swordSelect()
+    });
+
+    buildHitbox({ 
+        top: "15%",
+        left: "69%",
+        width: "23%",
+        height: "28%",
+        onEnter: () => fruits.style.opacity = "1",
+        onLeave: () => fruits.style.opacity = "0",
+        onClick: () => fruitsSelect()
+    });
+
+    startBlinking();
+}
+
 function loadInteract30() {
     resetInteract();
     
@@ -399,13 +489,14 @@ function loadInteract40() {
         left: "42%",
         width: "25%",
         height: "18%",
+        onEnter: () => {},
+        onLeave: () => {},
         onClick: () => loadFunny()
     });
 }
 
 function loadFunny() {
-    // show video here 
-    // then go back to the page as soon as video is done
+    goToPage(105);
 }
 
 function loadInteract49() {

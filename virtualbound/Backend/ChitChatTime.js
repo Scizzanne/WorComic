@@ -1,10 +1,6 @@
 // Constants
-const CHAT_INDICES = [85, 91, 94, 95, 96, 97, 99];
-const DEBUG_MODE = false;
-
-// Globals
-let currentIndex = 0;
-let pagesData = [];
+const CHAT_INDICES = [85, 91, 94, 95, 96, 97, 99]; // for debug
+const DEBUG_MODE = true;
 
 // Elements
 const container = document.querySelector(".text-biscord");
@@ -23,6 +19,13 @@ const profiles = {
     }
 };
 
+async function initChat() {
+    await initRouter(); 
+    renderPage();
+}
+
+initChat(); // init
+
 window.onkeydown = function(event) { 
     if (!DEBUG_MODE) return;
 
@@ -36,33 +39,12 @@ window.onkeydown = function(event) {
     }
 };
 
-// Load JSON - REPLACE WITH ROUTER
-async function loadPages() {
-    try {
-        const response = await fetch("./Backend/Pages.json");
-
-        if (!response.ok) {
-            throw new Error("HTTP error " + response.status);
-        }
-
-        pagesData = await response.json();
-
-        console.log("Loaded pages:", pagesData.length);
-
-        console.log(pagesData.length);
-        console.log(pagesData[85]);
-
-        renderPage();
-
-    } catch (err) {
-        console.error("Failed to load Pages.json:", err);
-    }
-}
-
 // Render page
 function renderPage() {
-    const pageNum = CHAT_INDICES[currentIndex];
-    const page = pagesData[pageNum];
+    const pageNum = getCurrentPage();
+    const page = getPageData();
+
+    console.log("Index " + pageNum + " loaded.");
 
     const file = page.media;
     const ext = file.split(".").pop().toLowerCase();
@@ -149,18 +131,9 @@ function renderPage() {
 
 // Navigation
 function nextPageCC() {
-    if (currentIndex < CHAT_INDICES.length - 1) {
-        currentIndex++;
-        renderPage();
-    }
+    goToPage(getCurrentPage() + 1);
 }
 
 function prevPageCC() {
-    if (currentIndex > 0) {
-        currentIndex--;
-        renderPage();
-    }
+    goToPage(getCurrentPage() - 1);
 }
-
-// Init
-loadPages();

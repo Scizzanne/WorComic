@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRTUALBOUND</title>
+    <script defer src="Backend/Router.js"></script>
+    <script defer src="Backend/PageHandler.js"></script>
+    <link rel="stylesheet" href="./Style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img src="./Images/vr_ship_background.png" class="background" alt=""> 
+    <header class="header vr-ship-header">
+        <a href="./home.html" class="home-button button button-vr-ship vr-ship-a">Home</a>
+        <a href="./episodes.html" class="episodes-button button button-vr-ship vr-ship-a">Episodes</a>
+        <a href="./about.html" class="about-button button button-vr-ship vr-ship-a">About</a>
+        <a href="./music.html" class="music-button button button-vr-ship vr-ship-a">Music</a>
+        <a href="./credits.html" class="credits-button button button-vr-ship vr-ship-a">Credits</a>
+    </header>
+    <div class="container">
+        <div id="comic-media" class="img" autoplay></div>
+        <div class="text text-vr-ship">
+            <p id="comic-text"></p>
+        </div>
+        <div class="switch switch-vr-ship">
+            <a id="previous" onclick="prevPage()" class="vr-ship-a">&lt;Previous</a>
+            <a id="next" onclick="nextPage()" class="vr-ship-a">Next&gt;</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -10,7 +10,7 @@ const PAGE_NUM = 77;
 // Global Variables
 let gameActive = true; // Flag to control game state
 let result = true; // true = win, false = lose
-let debug_hitbox = false;
+let debug_hitbox = false; // DEBUG MODE
 let timeRemaining = 15000; // 15000 = 15 seconds in ms - change for debugging
 let timerStarted = false;
 let flyController;
@@ -31,7 +31,6 @@ const flyMusic = document.getElementById('fly-music');
 // initial conditions
 nextButton.style.display = 'none';
 
-
 document.addEventListener("DOMContentLoaded", initFlyMinigame);
 
 // get json (router)
@@ -41,8 +40,6 @@ async function initFlyMinigame() {
     setCurrPage(77);
 
     console.log(getCurrentPage());
-
-    loadPage();
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -388,7 +385,7 @@ class FlyController {
 
         const size = rect.width;
 
-        // 
+        // configure this for swatter hitbox
         const shrink = 0.1; 
 
         return {
@@ -449,8 +446,8 @@ class FlyController {
             const headCenterX = (head.left + head.right) / 2;
             const headCenterY = (head.top + head.bottom) / 2;
 
-        const flyCenterX = (flyRect.left + flyRect.right) / 2;
-        const flyCenterY = (flyRect.top + flyRect.bottom) / 2;
+            const flyCenterX = (flyRect.left + flyRect.right) / 2;
+            const flyCenterY = (flyRect.top + flyRect.bottom) / 2;
 
             let dx = flyCenterX - headCenterX;
             let dy = flyCenterY - headCenterY;

@@ -1,6 +1,12 @@
+// Constants
+const MAX_INDEX = 101; // 0–101 allowed in normal flow
+const SECRET_INDICES = [102, 103, 104, 105];
+
+// Globals
 let pagesData = [];
 let currPage = 0;
 let initialized = false;
+let secret = false;
 
 // get the json!!!
 async function initRouter() {
@@ -25,7 +31,7 @@ function getPageData(index = currPage) {
 }
 
 function getPageType(index) {
-    if ([5, 30, 40, 49, 64].includes(index)) return "interactable";
+    if ([5, 16, 30, 40, 49, 64].includes(index)) return "interactable";
     if (index === 77) return "fly";
     if ([85, 91, 94, 95, 96, 97, 99].includes(index)) return "chat";
     return "comic";
@@ -66,6 +72,23 @@ function goToPage(index) {
     if (newRenderType === currentType) {
         if (newType === "comic" && typeof showPage === "function") {
             showPage(index);
+        } else if (newType === "chat" && typeof renderPage === "function") {
+            renderPage();
+        } else if (newType === "interactable") {
+            if (typeof loadPage === "function") {
+                currInteract = index;
+                currPage = index;
+                localStorage.setItem("currPage", index);
+                loadPage();
+            } else {
+                // defer until interactable is initialized
+                window.addEventListener("DOMContentLoaded", () => {
+                    currInteract = index;
+                    currPage = index;
+                    localStorage.setItem("currPage", index);
+                    loadPage();
+                });
+            }
         }
         return;
     }
@@ -91,51 +114,3 @@ function goToPage(index) {
 } 
 
 // indices 102, 103, 104, and 105 are easter eggs and separate from the flow. 
-
-// edge cases (0 indexed) so [index = page - 1]
-
-// we need to find a way to have other js files use this file and their own logic/functions for each html type
-// html types: Interactable.html, FlyMinigame.html, and ChitChatTime.html
-
-// index 5 is a different html and can branch off to 2 other indices - uses Interactable.html
-// route 1: index 6, which will go sequentially until index 10
-// route 2: index 11, which will go sequentially until index 13
-// both routes (index 10 & 13) head back to index 5, clicking on next leads to index 14
-// clicking previous in all indices 6 and 11 would lead back to index 5
-// clicking previous in index 14 would lead back to index 5
-
-// index 30 is another different html and can branch off to 3 other indices - uses Interactable.html
-// route 1: index 31, which will go sequentially until index 34
-// route 2: index 35, which will go sequentially until index 37
-// route 3: index 38, which will go sequentially until index 39, then to interactable index 40
-// all routes (index 34, 37 & interactable 40) head back to index 30, clicking on next leads to index 41
-// clicking previous in all indices 31 35 and 38 would lead back to index 30
-// clicking previous in index 41 would lead back to index 30
-
-// index 49 is another different html and can branch off to  other indices - uses Interactable.html
-// route 1: index 50, which will go sequentially until index 53 
-// route 2: index 54, which will go sequentially until index 55
-// route 3: index 56
-// all routes (index 53, 55 & 56) head back to index 49, clicking on next leads to index 57
-// clicking previous in all indices 50 54 and 56 would lead back to index 49
-// clicking previous in index 57 would lead back to index 49
-
-// index 64 is another different html and can branch off to 8 other indices - uses Interactable.html
-// route 1: index 65
-// route 2: index 66
-// route 3: index 67
-// route 4: index 68
-// route 5: index 69
-// route 6: index 70
-// route 7: index 71
-// route 8: index 72
-// all routes converge to index 74, hitting previous heads back to 64
-// clicking previous in all routes would lead back to index 64
-// clicking previous in index 74 would lead back to index 64
-
-// index 77 is the FlyMinigame.html, which then leads to index 80
-// the previous button would lead back to 76
-
-// index 85, 91, 94, 95, 96, 97, and 99 use ChitChatTime.html
- 
-

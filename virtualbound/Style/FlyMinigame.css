@@ -1,14 +1,3 @@
-/* Previous & Next Buttons */
-.world-a {
-    text-decoration: none;
-    color: rgb(75, 75, 75);
-}
-.world-a:hover {
-    color: rgb(0, 0, 0);
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
 .game-area {
     margin: auto;
     width: 92%;
@@ -17,6 +6,7 @@
     border: 1vh solid rgb(0, 0, 0);
     position: relative;
     overflow: hidden;
+    user-select: none; 
 }
 .game-area:hover {
     cursor: none;
@@ -37,6 +27,7 @@
     pointer-events: none;
     transform: translate(-50%, -50%);
     z-index: 2;
+    user-select: none; 
 }
 
 #fly {
@@ -46,11 +37,15 @@
     pointer-events: none;
     transform: translate(-50%, -50%);
     z-index: 1;
+    user-select: none; 
 }
 
-#game-text:before {
-    content: "HIT THE FLY \A <-----";
-    white-space: pre-wrap;
+#game-text::after {
+    content: "HIT THE FLY";
+}
+
+#game-arrows {
+    display: block;
 }
 
 /* Portrait mode */
@@ -76,9 +71,13 @@
     .switch {
         grid-row: 3/4; 
     }
+    
+    #game-text::after {
+        content: "^^HIT THE FLY^^";
+    }
 
-    #game-text:before {
-        content: "^^ HIT THE FLY ^^";
+    #game-arrows {
+        display: none;
     }
 }
 

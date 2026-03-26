@@ -1,39 +1,210 @@
-// "./Images/fly_minigame/fly_game_fly_sleep.PNG"
+// TODO: make the class separable into another file 
+// reorganize this junky code
+// make all globals/constants that can be set in the below area 
 
 // Constants
-const rate = 10; // ms (lower = faster buzzing) - used in FlyController
+const RATE = 60; // ms (lower = faster buzzing) - used in FlyController
+const FLY_SPEED = 0.01;
+const PAGE_NUM = 77;
 
 // Global Variables
 let gameActive = true; // Flag to control game state
 let result = true; // true = win, false = lose
+let debug_hitbox = false;
+let timeRemaining = 15000; // 15000 = 15 seconds in ms - change for debugging
+let timerStarted = false;
+let flyController;
 
 // Gather all elements needed
 const gameArea = document.querySelector('.game-area');
+const gameText = document.getElementById('game-text');
+const gameArrows = document.getElementById('game-arrows'); 
 const nextButton = document.getElementById('next');
-const prevButton = document.getElementById('prev');
+const prevButton = document.getElementById('previous');
 const fly = document.getElementById('fly');
 const swatter = document.getElementById('swatter');
+const debugBox = document.createElement('div');
+const flyDebugBox = document.createElement('div');
+const resultMedia = document.createElement('video');
+const flyMusic = document.getElementById('fly-music');
 
-// Game Loop
-checkGameState();
+// initial conditions
+nextButton.style.display = 'none';
 
+
+document.addEventListener("DOMContentLoaded", initFlyMinigame);
+
+// get json (router)
+async function initFlyMinigame() {
+    await initRouter();
+
+    setCurrPage(77);
+
+    console.log(getCurrentPage());
+
+    loadPage();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+
+    const nextButton = document.getElementById('next');
+    const prevButton = document.getElementById('previous');
+
+    if (!nextButton || !prevButton) {
+        console.log("Buttons not found");
+        return;
+    }
+
+    // initial state
+    nextButton.style.display = 'none';
+
+    prevButton.addEventListener('click', () => {
+        console.log("Prev clicked");
+
+        if (gameActive) {
+            goToPage(76);
+        } else {
+            window.location.reload();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        console.log("Next clicked");
+        goToPage(80);
+    });
+});
 
 // Functions
+function startMusic() {
+    if (!flyMusic) {
+        console.log("flyMusic not found");
+        return;
+    }
+
+    console.log("Trying to play music...");
+
+    flyMusic.currentTime = 0;
+    flyMusic.loop = true;
+
+    flyMusic.play().then(() => {
+        console.log("Music started");
+    }).catch(err => {
+        console.log("Play failed:", err);
+    });
+}
+function stopMusic() {
+    if (!flyMusic) return;
+
+    flyMusic.pause();
+    flyMusic.currentTime = 0;
+}
 function checkGameState() {
     if (gameActive) {
         nextButton.style.display = 'none';
+        gameArea.style.cursor = 'none';
     } else {
-        nextButton.style.display = 'inline';
+        stopMusic();
+
+        // Show cursor again
+        gameArea.style.cursor = 'auto';  // or 'default'
+
+        // Hide game elements
+        fly.style.display = 'none';
+        swatter.style.display = 'none';
+        if (gameText) gameText.style.display = 'none';
+        if (gameArrows) gameArrows.style.display = 'none';
+
+        const bg = gameArea.querySelector('.game-bg');
+        if (bg) bg.style.display = 'none';
+
+        resultMedia.autoplay = true;
+        resultMedia.loop = true;
+        resultMedia.muted = false;
+        resultMedia.playsInline = true;
+        resultMedia.style.width = '100%';
+        resultMedia.style.height = '100%';
+        resultMedia.style.objectFit = 'contain';
+        resultMedia.style.display = 'block';
+
+        if (result) loadWin();
+        else loadLose();
+
+        gameArea.appendChild(resultMedia);
+        gameArea.style.display = 'block';
     }
 }
+function loadWin() {
+    nextButton.style.display = 'inline';
+    resultMedia.src = './Images/80.mov';
+    
+    const resultText = document.getElementById('result-text');
+    if (resultText) resultText.textContent = "SWATTED";
+}
+function loadLose() {
+    resultMedia.src = './Images/79.mov';
+    
+    const resultText = document.getElementById('result-text');
+    if (resultText) resultText.textContent = "Don't swat yourself dumbass!";
+
+    prevButton.textContent = "<Retry";
+}
+function startTimer() {
+    if (timerStarted) return;
+    if (!flyController) return;
+
+    timerStarted = true;
+    const interval = setInterval(() => {
+        timeRemaining -= 100;
+        if (timeRemaining <= 0) {
+            clearInterval(interval);
+            stopMusic();
+            flyController.enterSleepMode(); 
+        }
+    }, 100);
+}
+function checkHitOrMiss() {
+    if (!flyController) return;
+
+    const flyRect = flyController.getFlyHitbox();
+    const swatterRect = flyController.getSwatterHeadRect();
+
+    const hit = 
+        flyRect.right > swatterRect.left &&
+        flyRect.left < swatterRect.right &&
+        flyRect.bottom > swatterRect.top &&
+        flyRect.top < swatterRect.bottom;
+
+    result = hit; // true if hit, false if miss
+    console.log(hit ? "Hit" : "Miss");
+}
+
+// ACTIVATE MUSIC
+window.addEventListener('mousedown', () => {
+    if (gameActive) {
+        //startMusic();
+    }
+}, { once: true });
 
 // Initialize fly controller
-let flyController;
 window.addEventListener('DOMContentLoaded', () => {
     if (!gameArea || !fly) return;
     flyController = new FlyController(fly, gameArea, swatter);
-});
 
+    if (debug_hitbox) { // debug
+        debugBox.style.position = 'fixed';
+        debugBox.style.border = '2px solid green';
+        debugBox.style.pointerEvents = 'none';
+        debugBox.style.zIndex = '2';
+        document.body.appendChild(debugBox);
+
+        flyDebugBox.style.position = 'fixed';
+        flyDebugBox.style.border = '2px solid red';
+        flyDebugBox.style.pointerEvents = 'none';
+        flyDebugBox.style.zIndex = '2';
+        document.body.appendChild(flyDebugBox);
+    }
+    startTimer();
+});
 // Swatter movement based on cursor position
 window.addEventListener('DOMContentLoaded', () => {
     if (!gameArea || !swatter) return;
@@ -70,8 +241,22 @@ window.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mousemove', updateSwatterPosition);
 });
 
+// listens for clicks
+if (gameArea) {
+    gameArea.addEventListener('mousedown', () => {
+        if (!gameActive) return;
+
+        checkHitOrMiss();        
+        gameActive = false; 
+        
+        stopMusic();
+
+        checkGameState(); 
+    });
+}
+
 // make this into its own file later
-export class FlyController {
+class FlyController {
     constructor(flyElement, gameArea, swatterElem) {
         this.fly = flyElement;
         this.gameArea = gameArea;
@@ -81,8 +266,6 @@ export class FlyController {
         this.y = 0;
         this.targetX = 0;
         this.targetY = 0;
-        this.vx = 0;
-        this.vy = 0;
         this.time = 0;
         this.waypointTime = 0;
         this.waypointDuration = Math.random() * 3000 + 1000; // 1-4 seconds per waypoint
@@ -96,7 +279,7 @@ export class FlyController {
             "./Images/fly_minigame/fly_game_fly_2.PNG"
         ];
         this.currentFrame = 0;
-        this.animationInterval = rate; 
+        this.animationInterval = RATE; 
         this.animationTimer = 0;
         
         this.initialize();
@@ -111,10 +294,39 @@ export class FlyController {
         // swatter escape 
         this.isEscaping = false;
         this.escapeTime = 0;
-        this.escapeDuration = 180; // ms (tune this for "annoying but fair")
-        this.escapeSpeed = 2.8; // multiplier for zip speed
+        this.escapeDuration = 200; // ms 
+        this.escapeSpeed = 5; // multiplier for zip speed
         this.escapeDirX = 0;
         this.escapeDirY = 0;
+
+        // sleeping functionality
+        this.isSleeping = false;
+        this.sleepTargetX = 0;
+        this.sleepTargetY = 0;
+        this.sleepSettled = false;
+        this.sleepImage = "./Images/fly_minigame/fly_game_fly_sleep.PNG";
+
+        window.addEventListener('resize', () => {
+            if (!this.isSleeping) return;
+
+            const rect = this.gameArea.getBoundingClientRect();
+
+            this.sleepTargetX = rect.width * 0.1;
+            this.sleepTargetY = rect.height * 0.925;
+
+            // Instantly snap 
+            this.x = this.sleepTargetX;
+            this.y = this.sleepTargetY;
+
+            this.fly.style.left = `${this.x}px`;
+            this.fly.style.top = `${this.y}px`;
+
+            // Ensure correct image
+            this.fly.src = this.sleepImage;
+
+            // Keep it locked
+            this.sleepSettled = true;
+        });
     }
 
     initialize() { // helper
@@ -171,15 +383,13 @@ export class FlyController {
         return noise1 + noise2;
     }
 
-    // ADDED -------------------------------------
-
     getSwatterHeadRect() {
         const rect = this.swatter.getBoundingClientRect();
 
         const size = rect.width;
 
-        // shrink hitbox to actual "mesh" of swatter
-        const shrink = 0.5; // tune this (0.3–0.5 is good)
+        // 
+        const shrink = 0.1; 
 
         return {
             left: rect.left + size * shrink,
@@ -188,11 +398,45 @@ export class FlyController {
             bottom: rect.top + size * (1 - shrink)
         };
     }
+    getFlyHitbox() {
+        const rect = this.fly.getBoundingClientRect();
+
+        const shrinkXFraction = 0.42;  // fraction of width to shrink horizontally
+        const shrinkYFraction = 0.45;  // fraction of height to shrink vertically
+
+        const offsetXFraction = 0.021;  // fraction of width to shift right
+        const offsetYFraction = -0.07; // fraction of height to shift up
+
+        const width = rect.width;
+        const height = rect.height;
+
+        const offsetX = width * offsetXFraction;
+        const offsetY = height * offsetYFraction;
+
+        return {
+            left: rect.left + width * shrinkXFraction + offsetX,
+            right: rect.right - width * shrinkXFraction + offsetX,
+            top: rect.top + height * shrinkYFraction + offsetY,
+            bottom: rect.bottom - height * shrinkYFraction + offsetY
+        };
+    }
+
+    enterSleepMode() {
+        const rect = this.gameArea.getBoundingClientRect();
+
+        this.isSleeping = true;
+        this.sleepSettled = false; // allow animation ONCE
+
+        this.sleepTargetX = rect.width * 0.1;
+        this.sleepTargetY = rect.height * 0.925;
+
+        this.isEscaping = false;
+    }   
 
     checkSwatterThreat() {
         if (this.isEscaping) return;
 
-        const flyRect = this.fly.getBoundingClientRect();
+        const flyRect = this.getFlyHitbox();
         const head = this.getSwatterHeadRect();
 
         const overlap =
@@ -205,8 +449,8 @@ export class FlyController {
             const headCenterX = (head.left + head.right) / 2;
             const headCenterY = (head.top + head.bottom) / 2;
 
-            const flyCenterX = flyRect.left + flyRect.width / 2;
-            const flyCenterY = flyRect.top + flyRect.height / 2;
+        const flyCenterX = (flyRect.left + flyRect.right) / 2;
+        const flyCenterY = (flyRect.top + flyRect.bottom) / 2;
 
             let dx = flyCenterX - headCenterX;
             let dy = flyCenterY - headCenterY;
@@ -223,34 +467,68 @@ export class FlyController {
         }
     }
 
-    //  -------------------------------------
-
     update(deltaTime) { // setter
         if (!this.isInitialized) return;
 
-        this.animationTimer += deltaTime;
+        this.updateDebugBox();
+        this.updateFlyDebugBox();
 
-        if (this.animationTimer >= this.animationInterval) {
-            this.animationTimer = 0;
-            
-            this.currentFrame = (this.currentFrame + 1) % this.flyFrames.length;
-            this.fly.src = this.flyFrames[this.currentFrame];
+        // ONLY animate if NOT fully settled in sleep mode
+        if (!(this.isSleeping && this.sleepSettled)) {
+            this.animationTimer += deltaTime;
+
+            if (this.animationTimer >= this.animationInterval) {
+                this.animationTimer = 0;
+                this.currentFrame = (this.currentFrame + 1) % this.flyFrames.length;
+                this.fly.src = this.flyFrames[this.currentFrame];
+            }
+        }
+
+        if (this.isSleeping) {
+            if (this.sleepSettled) {
+                return;
+            }
+
+            const dx = this.sleepTargetX - this.x;
+            const dy = this.sleepTargetY - this.y;
+
+            const dist = Math.hypot(dx, dy);
+
+            const settleSpeed = 0.2; // SET THE SETTLING SPEED
+
+            if (dist > 2) {
+                const dirX = dx / dist;
+                const dirY = dy / dist;
+
+                this.x += dirX * settleSpeed * deltaTime;
+                this.y += dirY * settleSpeed * deltaTime;
+            } else {
+                // Snap exactly once
+                this.x = this.sleepTargetX;
+                this.y = this.sleepTargetY;
+
+                this.fly.src = this.sleepImage;
+
+                this.fly.style.left = `${this.x}px`;
+                this.fly.style.top = `${this.y}px`;
+
+                this.sleepSettled = true;
+            }
+
+            this.fly.style.left = `${this.x}px`;
+            this.fly.style.top = `${this.y}px`;
+
+            return;
         }
 
         this.time += deltaTime;
         this.waypointTime += deltaTime;
-
-        // ADDED ------------------------------------- REORGANIZE
 
         this.checkSwatterThreat();
 
         const rect = this.gameArea.getBoundingClientRect();
         const width = rect.width;
         const height = rect.height;
-
-        //  -------------------------------------
-
-
         
         // Switch waypoint if duration exceeded
         if (this.waypointTime > this.waypointDuration) {
@@ -260,10 +538,6 @@ export class FlyController {
         // Smooth movement toward waypoint with easing
         const progress = Math.min(this.waypointTime / this.waypointDuration, 1);
         const easeProgress = this.easeInOutQuad(progress);
-        
-
-
-        // ADDED ------------------------------------- EDITED
 
         // Calculate start to target movement
         let baseX, baseY;
@@ -277,11 +551,10 @@ export class FlyController {
             let nextX = this.x + this.escapeDirX * push;
             let nextY = this.y + this.escapeDirY * push;
 
-            // If pushing into wall → flip direction
+            // If pushing into wall, flip direction
             if (nextX <= this.wallMargin || nextX >= width - this.wallMargin) {
                 this.escapeDirX *= -1;
             }
-
             if (nextY <= this.wallMargin || nextY >= height - this.wallMargin) {
                 this.escapeDirY *= -1;
             }
@@ -297,8 +570,9 @@ export class FlyController {
                 this.isEscaping = false;
             }
         } else {
-            baseX = this.x + (this.targetX - this.x) * 0.01;
-            baseY = this.y + (this.targetY - this.y) * 0.01;
+            const speed = deltaTime * FLY_SPEED;
+            baseX = this.x + (this.targetX - this.x) * speed;
+            baseY = this.y + (this.targetY - this.y) * speed;
         }
 
         
@@ -313,7 +587,6 @@ export class FlyController {
             this.x = baseX + noiseX;
             this.y = baseY + noiseY;
         }
-        //  -------------------------------------
         
         const margin = width * 0.05;
         
@@ -326,7 +599,6 @@ export class FlyController {
         const nearTop = this.y <= this.wallMargin;
         const nearBottom = this.y >= height - this.wallMargin;
 
-        // ADDED -------------------------------------
         const nearCorner =
             (nearLeft && nearTop) ||
             (nearLeft && nearBottom) ||
@@ -340,7 +612,6 @@ export class FlyController {
 
             this.generateEscapeWaypoint();
         }
-        //  -------------------------------------
 
         const isNearWall = nearLeft || nearRight || nearTop || nearBottom;
 
@@ -358,6 +629,27 @@ export class FlyController {
         // Update position
         this.fly.style.left = `${this.x}px`;
         this.fly.style.top = `${this.y}px`;
+    }
+
+    updateDebugBox() {
+        if (!this.swatter || !debug_hitbox) return;
+
+        const head = this.getSwatterHeadRect();
+
+        debugBox.style.left = `${head.left}px`;
+        debugBox.style.top = `${head.top}px`;
+        debugBox.style.width = `${head.right - head.left}px`;
+        debugBox.style.height = `${head.bottom - head.top}px`;
+    }
+    updateFlyDebugBox() {
+        if (!this.fly || !debug_hitbox) return;
+
+        const box = this.getFlyHitbox();
+
+        flyDebugBox.style.left = `${box.left}px`;
+        flyDebugBox.style.top = `${box.top}px`;
+        flyDebugBox.style.width = `${box.right - box.left}px`;
+        flyDebugBox.style.height = `${box.bottom - box.top}px`;
     }
 
     easeInOutQuad(t) { // helper

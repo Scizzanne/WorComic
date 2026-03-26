@@ -1,43 +1,49 @@
-// constants
-let currPage = 0;
-let comicData = [];
-
-let mediaContainer = document.getElementById("comic-media");
-const textContainer = document.getElementById("comic-text");
-let mediaParent = mediaContainer?.parentElement;
-
 // declare all media types that can be displayed
 const IMAGE_TYPES = ["png", "jpg", "jpeg", "gif"];
 const VIDEO_TYPES = ["mp4", "webm", "mov"];
 
-document.addEventListener("DOMContentLoaded", init);
+// gather elements
+const textContainer = document.getElementById("comic-text");
+
+let mediaContainer;
+let mediaParent;
+
+document.addEventListener("DOMContentLoaded", init); // wait for router...
 
 async function init() {
-    try {
-        const response = await fetch("./Backend/Pages.json"); // det da file
-        const data = await response.json(); 
+    await initRouter();
 
-        comicData = data;
+    const currPage = getCurrentPage();
 
-        const savedPage = localStorage.getItem("currPage");
+    // GUARD 
+    const expectedType = getPageType(currPage);
+    const currentType = getCurrentPageType?.(); // safe call
 
-        currPage = savedPage ? parseInt(savedPage) : 0;
-
-        showPage(currPage);
-    } catch (error) {
-        console.error("Error fetching pages:", error);
+    let expectedRenderType = expectedType;
+    if (expectedType === "comic") {
+        expectedRenderType = currPage < 25 ? "vr" : "web";
     }
+
+    if (expectedRenderType !== currentType) {
+        goToPage(currPage);
+        return;
+    }
+
+    // normal setup
+    mediaContainer = document.getElementById("comic-media");
+    mediaParent = mediaContainer?.parentElement;
+
+    showPage(currPage);
 }
 
 function showPage(pageNum) {
-    if (pageNum < 0 || pageNum >= comicData.length) return;
+    const page = getPageData(pageNum);
+    if (!page) return;
 
-    const page = comicData[pageNum];
     const file = page.media;
     const ext = file.split(".").pop().toLowerCase();
 
     // get da div
-    mediaContainer = document.getElementById("comic-media");
     mediaParent = mediaContainer?.parentElement;
 
     // Clear old media container div 
@@ -78,46 +84,36 @@ function showPage(pageNum) {
 
     textContainer.innerText = page.text || "";
 
-    currPage = pageNum;
-    localStorage.setItem("currPage", currPage);
-
-    console.log("Page " + currPage + " loaded.");
+    console.log("Index " + pageNum + " loaded.")
 
     preloadNextPage();
 }
 
 function nextPage() {
-    if (currPage < comicData.length - 1) {
-        showPage(currPage + 1);
-
-    }
+    const curr = getCurrentPage();
+    goToPage(curr + 1);
 }
 
 function prevPage() {
-    if (currPage > 0) {
-        showPage(currPage - 1);
-    }
+    const curr = getCurrentPage();
+    goToPage(curr - 1);
 }
 
 function preloadNextPage() {
-    if (currPage + 1 >= comicData.length) return;
+    const curr = getCurrentPage();
+    const nextPageData = getPageData(curr + 1);
+    if (!nextPageData) return;
 
-    const nextPage = comicData[currPage + 1].media;
-    const ext = nextPage.split(".").pop().toLowerCase();
+    const nextMedia = nextPageData.media;
+    const ext = nextMedia.split(".").pop().toLowerCase();
 
     if (IMAGE_TYPES.includes(ext)) {
         const img = new Image();
-        img.src = nextPage;
+        img.src = nextMedia;
     }
 
     if (VIDEO_TYPES.includes(ext)) {
         const video = document.createElement("video");
-        video.src = nextPage;
+        video.src = nextMedia;
     }
 }
-
-// edge cases (0 indexed)
-// Pages 5, 30, 49, 64, 76 leads to different html pages
-// Pages 85, 91, 94, 95, 96, 97, 99 Different html types
-
-// Page 77 is the fly minigame (different js)

@@ -88,6 +88,18 @@ a:hover {
     cursor: pointer;
 }
 
+/* Previous & Next Buttons web style */
+.web-a {
+    text-decoration: none;
+    user-select: none; 
+    color: rgb(75, 75, 75);
+}
+.web-a:hover {
+    color: rgb(0, 0, 0);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
 .button {
     background-color: rgb(233, 233, 233);
     display: flex;
@@ -451,7 +463,7 @@ a:hover {
     grid-row: 1/2;
     overflow-y: auto;
     max-height: 80vh;
-    clip-path: polygon(1% 1%, 100% 0, 99% 99%, 2% 99%);
+    clip-path: polygon(1% 1%, 100% 0, 99% 100%, 2% 99%);
 }
 
 .text-vr-ship {
@@ -461,8 +473,8 @@ a:hover {
 
 .text-biscord {
     background-image: linear-gradient(rgb(34, 34, 34), rgb(56, 56, 56));
-    display: grid;
-    grid-template-rows: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 4vh;
     padding: 3vh;
     grid-column: 2/3;

@@ -3,8 +3,8 @@ const MAX_INDEX = 101; // 0–101 allowed in normal flow
 const SECRET_INDICES = [102, 103, 104, 105];
 
 // Globals
+let currPage = 0; // current page 
 let pagesData = [];
-let currPage = 0;
 let initialized = false;
 let secret = false;
 
@@ -50,6 +50,7 @@ function getCurrentPageType() {
     return "comic";
 }
 
+// setters
 function setCurrPage(thePage) {
     currPage = thePage;
 }
@@ -67,6 +68,8 @@ function goToPage(index) {
 
     currPage = index;
     localStorage.setItem("currPage", index);
+
+    unlockPage(index);
 
     // SAME PAGE TYPE, no reload
     if (newRenderType === currentType) {
@@ -113,4 +116,14 @@ function goToPage(index) {
     }
 } 
 
+function unlockPage(index) {
+    let unlocked = JSON.parse(localStorage.getItem("unlockedPages")) || [0];
+
+    if (!unlocked.includes(index)) {
+        unlocked.push(index);
+        localStorage.setItem("unlockedPages", JSON.stringify(unlocked));
+    }
+}
+
 // indices 102, 103, 104, and 105 are easter eggs and separate from the flow. 
+// 105 handled 

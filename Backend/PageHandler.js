@@ -219,8 +219,12 @@ const INTERACTABLE_NAV = {
     70: { next: 74, prev: 64 },
     71: { next: 74, prev: 64 },
     72: { next: 74, prev: 64 },
+    73: { next: 74, prev: 64 },
     74: { next: 75, prev: 64 }, // end
 
+    // fly minigame = 77
+    78: { next: 80, prev: 77 }, // miss
+    79: { next: 80, prev: 77 }, // hit
     80: { next: 81, prev: 77 }, // end
 
     105: { next: 40, prev: 40 },

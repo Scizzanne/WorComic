@@ -600,6 +600,10 @@ a:hover {
     color: rgb(0, 0, 0);
 }
 
+.wr {
+    color: rgb(201 239 243);
+}
+
 /* Media Query*/
 @media (max-width: 900px) {
 

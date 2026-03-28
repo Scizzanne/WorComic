@@ -1,13 +1,13 @@
 /* tinker with the colors as you desire wor boy~ */
 a.visit {
-    color: rgb(61, 61, 61); 
+    color: rgb(57, 57, 57); 
 }
 a.visit:hover {
     color: rgb(0, 0, 0); 
 }
 
 a.not-visit {
-    color: rgb(91, 91, 91);
+    color: rgb(101, 101, 101);
 }
 a.not-visit:hover {
     color: rgb(0, 0, 0);

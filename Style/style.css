@@ -866,6 +866,11 @@ a:hover {
     height: 100%;
     margin-left: 2%;
     margin-right: 2%;
+    word-spacing: 30px;
+}
+
+.web-a {
+    font-size: 10vw;
 }
 
 }

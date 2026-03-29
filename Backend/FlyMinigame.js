@@ -5,15 +5,15 @@
 // Constants
 const RATE = 60; // ms (lower = faster buzzing) - used in FlyController
 const FLY_SPEED = 0.01;
-const PAGE_NUM = 77;
+const PAGE_NUM = 77; // guaranteed to be index 77 
+const DEBUG_MODE = false; // DEBUG MODE
 
 // Global Variables
 let gameActive = true; // Flag to control game state
 let result = true; // true = win, false = lose
-let debug_hitbox = false; // DEBUG MODE
 let timeRemaining = 15000; // 15000 = 15 seconds in ms - change for debugging
 let timerStarted = false;
-let flyController;
+let flyController; // fly object
 
 // Gather all elements needed
 const gameArea = document.querySelector('.game-area');
@@ -187,7 +187,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!gameArea || !fly) return;
     flyController = new FlyController(fly, gameArea, swatter);
 
-    if (debug_hitbox) { // debug
+    if (DEBUG_MODE) { // debug
         debugBox.style.position = 'fixed';
         debugBox.style.border = '2px solid green';
         debugBox.style.pointerEvents = 'none';
@@ -202,6 +202,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     startTimer();
 });
+
 // Swatter movement based on cursor position
 window.addEventListener('DOMContentLoaded', () => {
     if (!gameArea || !swatter) return;
@@ -629,7 +630,7 @@ class FlyController {
     }
 
     updateDebugBox() {
-        if (!this.swatter || !debug_hitbox) return;
+        if (!this.swatter || !DEBUG_MODE) return;
 
         const head = this.getSwatterHeadRect();
 
@@ -639,7 +640,7 @@ class FlyController {
         debugBox.style.height = `${head.bottom - head.top}px`;
     }
     updateFlyDebugBox() {
-        if (!this.fly || !debug_hitbox) return;
+        if (!this.fly || !DEBUG_MODE) return;
 
         const box = this.getFlyHitbox();
 

@@ -605,6 +605,80 @@ a:hover {
 }
 
 /* Media Query*/
+@media (max-width: 1250px) {
+
+/* Home */
+
+.ho-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 1fr 3fr 1fr;
+    row-gap: 5vh;
+}
+
+.main-cover {
+    height: 110vw;
+    grid-row: 4/5;
+    grid-column: 1/3;
+    margin: auto;
+}
+
+.news {
+    grid-row: 2/4;
+    grid-column: 1/2;
+    height: 40vw;
+}
+
+.playlist {
+    margin: auto;
+    width: 100%;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.playlist p {
+    margin: 0;
+    padding: 5%;
+}
+
+.c-s {
+    position: relative;
+}
+
+.empty {
+    display: none;
+}
+
+.socials {
+    height: 22.6vw;
+    grid-row: 3/4;
+    grid-column: 2/3;
+    grid-template-columns: 1fr 2fr;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+}
+
+.socials-text {
+    font-size: 3vw;
+}
+
+.socials-img {
+    height: 10vw;
+}
+
+/* Music */
+
+.mu-container {
+    margin-left: 5vh;
+}
+
+.vinyl {
+    display: none;
+}
+
+.coming-soon img {
+    width: 60vw;
+}
+
+}
+
 @media (max-width: 900px) {
 
 /* Episodes */
@@ -665,8 +739,16 @@ a:hover {
     height: 25vh;
     grid-row: 5/6;
     grid-column: 1/2;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 3fr;
     clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+}
+
+.socials-text {
+    font-size: 4vw;
+}
+
+.socials-img {
+    height: 15vw;
 }
 
 /* Episodes */
@@ -804,80 +886,6 @@ a:hover {
 
 .coming-soon p {
     font-size: 100px;
-}
-
-}
-
-@media (max-width: 1250px) {
-
-/* Home */
-
-.ho-container {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 3fr 1fr 3fr 1fr;
-    row-gap: 5vh;
-}
-
-.main-cover {
-    height: 110vw;
-    grid-row: 4/5;
-    grid-column: 1/3;
-    margin: auto;
-}
-
-.news {
-    grid-row: 2/4;
-    grid-column: 1/2;
-    height: 40vw;
-}
-
-.playlist {
-    margin: auto;
-    width: 100%;
-    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
-}
-
-.playlist p {
-    margin: 0;
-    padding: 5%;
-}
-
-.c-s {
-    position: relative;
-}
-
-.empty {
-    display: none;
-}
-
-.socials {
-    height: 22.6vw;
-    grid-row: 3/4;
-    grid-column: 2/3;
-    grid-template-columns: 1fr 1fr;
-    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
-}
-
-.socials-text {
-    font-size: 3vw;
-}
-
-.socials-img {
-    height: 10vw;
-}
-
-/* Music */
-
-.mu-container {
-    margin-left: 5vh;
-}
-
-.vinyl {
-    display: none;
-}
-
-.coming-soon img {
-    width: 60vw;
 }
 
 }
